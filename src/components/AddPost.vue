@@ -47,7 +47,7 @@
 
 <script>
 import PostDataService from "../services/PostDataService";
-const cyrillicToTranslit = require('cyrillic-to-translit-js');
+// const cyrillicToTranslit = require('cyrillic-to-translit-js');
 
 export default {
   name: "add-post",
@@ -68,7 +68,7 @@ export default {
       var data = {
         title: this.post.title,
         description: this.post.description,
-        slug: this.post.slug && this.post.slug != '' ? this.post.slug : cyrillicToTranslit().transform(this.post.slug, "-").toLowerCase().replace(/[^\w\s-]/g,''),
+        slug: this.post.slug/*  && this.post.slug != '' ? this.post.slug : cyrillicToTranslit().transform(this.post.title, "-").toLowerCase().replace(/[^\w\s-]/g,'') */,
       };
 
       PostDataService.create(data)

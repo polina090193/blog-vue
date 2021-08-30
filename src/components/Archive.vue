@@ -47,6 +47,7 @@ export default {
       headers: [
         { text: "Title", align: "start", sortable: false, value: "title" },
         { text: "Description", value: "description", sortable: false },
+        { text: "Slug", value: "slug", sortable: false },
         { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
@@ -105,6 +106,7 @@ export default {
       return {
         id: post.id,
         title: post.title.length > 30 ? post.title.substr(0, 30) + "..." : post.title,
+        slug: post.slug,
         description: post.description.length > 30 ? post.description.substr(0, 30) + "..." : post.description,
         status: post.published ? "Published" : "Pending",
       };
