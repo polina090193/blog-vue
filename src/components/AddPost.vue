@@ -8,20 +8,23 @@
           v-model="post.title"
           :rules="[(v) => !!v || 'Title is required']"
           label="Title"
+          class="text-field title-field"
           required
         ></v-text-field>
         
         <v-text-field
           v-model="post.slug"
           label="Slug"
+          class="text-field slug-field"
         ></v-text-field>
 
-        <v-text-field
+        <v-textarea
           v-model="post.description"
           :rules="[(v) => !!v || 'Description is required']"
           label="Description"
+          class="textarea-field description-field"
           required
-        ></v-text-field>
+        ></v-textarea>
       </v-form>
 
       <v-btn color="primary" @click="savePost">Submit</v-btn>
@@ -34,7 +37,7 @@
         </v-card-title>
 
         <v-card-subtitle>
-          Click the button to add new Tutorial.
+          Click the button to add new Post.
         </v-card-subtitle>
 
         <v-card-actions>
@@ -47,7 +50,7 @@
 
 <script>
 import PostDataService from "../services/PostDataService";
-// const cyrillicToTranslit = require('cyrillic-to-translit-js');
+const cyrillicToTranslit = require('cyrillic-to-translit-js');
 
 export default {
   name: "add-post",
@@ -68,7 +71,7 @@ export default {
       var data = {
         title: this.post.title,
         description: this.post.description,
-        slug: this.post.slug/*  && this.post.slug != '' ? this.post.slug : cyrillicToTranslit().transform(this.post.title, "-").toLowerCase().replace(/[^\w\s-]/g,'') */,
+        slug: this.post.slug && this.post.slug != '' ? this.post.slug : cyrillicToTranslit().transform(this.post.title, "-").toLowerCase().replace(/[^\w\s-]/g,''),
       };
 
       PostDataService.create(data)
@@ -91,6 +94,9 @@ export default {
 
 <style>
 .submit-form {
-  max-width: 300px;
+  width: 60%;
+}
+.text-field {
+  width: 40%;
 }
 </style>

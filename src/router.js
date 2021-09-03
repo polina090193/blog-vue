@@ -4,7 +4,7 @@ import Router from "vue-router";
 Vue.use(Router);
 
 export default new Router({
-//   mode: "history",
+  // mode: "history",
   routes: [
     {
       path: "/",
@@ -13,9 +13,14 @@ export default new Router({
       component: () => import("./components/Archive")
     },
     {
-      path: "/posts/:id",
+      path: "/posts/:slug",
       name: "post-details",
       component: () => import("./components/Post")
+    },
+    {
+      path: "/posts/:slug/edit",
+      name: "post-edit",
+      component: () => import("./components/EditPost")
     },
     {
       path: "/add",

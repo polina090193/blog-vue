@@ -20,8 +20,11 @@
           disable-pagination
           :hide-default-footer="true"
         >
+          <template v-slot:[`item.title`]="{ item }">
+            <a class="" @click="showSinglePost(item.id, item.slug)">{{ item.title }}</a>
+          </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editPost(item.id)">mdi-pencil</v-icon>
+            <v-icon small class="mr-2" @click="editPost(item.id, item.slug)">mdi-pencil</v-icon>
             <v-icon small @click="deletePost(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
@@ -47,8 +50,6 @@ export default {
       headers: [
         { text: "Title", align: "start", sortable: false, value: "title" },
         { text: "Description", value: "description", sortable: false },
-        { text: "Slug", value: "slug", sortable: false },
-        { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
     };
@@ -88,8 +89,12 @@ export default {
         });
     },
 
-    editPost(id) {
-      this.$router.push({ name: "post-details", params: { id: id } });
+    showSinglePost(id, slug) {
+      this.$router.push({ name: "post-details", params: { id: id, slug: slug } });
+    },
+
+    editPost(id, slug) {
+      this.$router.push({ name: "post-edit", params: { id: id, slug: slug } });
     },
 
     deletePost(id) {
@@ -104,11 +109,10 @@ export default {
 
     getDisplayPost(post) {
       return {
-        id: post.id,
+        id: post._id,
         title: post.title.length > 30 ? post.title.substr(0, 30) + "..." : post.title,
         slug: post.slug,
         description: post.description.length > 30 ? post.description.substr(0, 30) + "..." : post.description,
-        status: post.published ? "Published" : "Pending",
       };
     },
   },
