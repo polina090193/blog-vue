@@ -2,22 +2,15 @@
   <div v-if="currentPost" class="edit-form py-3">
     <p class="headline">{{ currentPost.title }}</p>
 
-    <p>{{ currentPost.description }}</p>
-
+    <div v-html="currentPost.description"></div>
+    
     <v-form ref="form" lazy-validation>
-
-      <v-btn
-        @click="editPost"
-        color="primary" small class="mr-2"
-      >
-        Edit
-      </v-btn>
+      <v-btn @click="editPost" color="primary" small class="mr-2"> Edit </v-btn>
 
       <v-btn color="error" small class="mr-2" @click="deletePost">
         Delete
       </v-btn>
     </v-form>
-
   </div>
 
   <div v-else>
@@ -49,7 +42,10 @@ export default {
     },
 
     editPost() {
-      this.$router.push({ name: "post-edit", params: { id: this.currentPost.id, slug: this.currentPost.slug } });
+      this.$router.push({
+        name: "post-edit",
+        params: { id: this.currentPost.id, slug: this.currentPost.slug },
+      });
     },
 
     deletePost() {

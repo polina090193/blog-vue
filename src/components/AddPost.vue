@@ -19,21 +19,10 @@
         ></v-text-field>
 
         <quill-editor
-    ref="myQuillEditor"
-    v-model="content"
-    :options="editorOption"
-    @blur="onEditorBlur($event)"
-    @focus="onEditorFocus($event)"
-    @ready="onEditorReady($event)"
-  />
-
-        <v-textarea
+          ref="myQuillEditor"
           v-model="post.description"
-          :rules="[(v) => !!v || 'Description is required']"
-          label="Description"
-          class="textarea-field description-field"
-          required
-        ></v-textarea>
+          :options="editorOption"
+        />
       </v-form>
 
       <v-btn color="primary" @click="savePost">Submit</v-btn>
@@ -61,7 +50,6 @@
 import PostDataService from "../services/PostDataService";
 const cyrillicToTranslit = require('cyrillic-to-translit-js');
 import 'quill/dist/quill.snow.css';
-import 'quill/dist/quill.snow.css'
 import { quillEditor } from 'vue-quill-editor';
 
 export default {
@@ -76,10 +64,9 @@ export default {
         published: false,
       },
       submitted: false,
-      content: '<h2>I am Example</h2>',
-        editorOption: {
-          // Some Quill options...
-        }
+      editorOption: {
+        
+      }
     };
   },
   methods: {

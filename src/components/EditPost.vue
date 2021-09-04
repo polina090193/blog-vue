@@ -10,38 +10,19 @@
         required
       ></v-text-field>
 
-      <v-text-field
-        v-model="currentPost.description"
-        :rules="[(v) => !!v || 'Description is required']"
-        label="Description"
-        required
-      ></v-text-field>
-
-      <label><strong>Status:</strong></label>
-      {{ currentPost.published ? "Published" : "Pending" }}
+      <quill-editor
+          ref="myQuillEditor"
+          v-model="currentPost.description"
+        />
 
       <v-divider class="my-5"></v-divider>
 
-      <v-btn v-if="currentPost.published"
-        @click="updatePublished(false)"
-        color="primary" small class="mr-2"
-      >
-        UnPublish
-      </v-btn>
-
-      <v-btn v-else
-        @click="updatePublished(true)"
-        color="primary" small class="mr-2"
-      >
-        Publish
+      <v-btn color="success" small @click="updatePost">
+        Update
       </v-btn>
 
       <v-btn color="error" small class="mr-2" @click="deletePost">
         Delete
-      </v-btn>
-
-      <v-btn color="success" small @click="updatePost">
-        Update
       </v-btn>
     </v-form>
 
@@ -55,6 +36,8 @@
 
 <script>
 import PostDataService from "../services/PostDataService";
+import 'quill/dist/quill.snow.css';
+import { quillEditor } from 'vue-quill-editor';
 
 export default {
   name: "post",
@@ -117,6 +100,10 @@ export default {
     this.message = "";
     this.getPost(this.$route.params.id);
   },
+
+  components: {
+    quillEditor
+  }
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <v-row align="center" class="list px-3 mx-auto">
     <v-col cols="12" md="8">
-      <v-text-field v-model="title" label="Search by Title"></v-text-field>
+      <v-text-field v-model="title" label="Search by Title" @keyup.enter="searchTitle"></v-text-field>
     </v-col>
 
     <v-col cols="12" md="4">
@@ -22,6 +22,9 @@
         >
           <template v-slot:[`item.title`]="{ item }">
             <a class="" @click="showSinglePost(item.id, item.slug)">{{ item.title }}</a>
+          </template>
+          <template v-slot:[`item.description`]="{ item }">
+            <span v-html="item.description"></span>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editPost(item.id, item.slug)">mdi-pencil</v-icon>
