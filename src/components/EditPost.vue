@@ -10,16 +10,17 @@
         required
       ></v-text-field>
 
-      <quill-editor
-          ref="myQuillEditor"
-          v-model="currentPost.description"
-        />
+      <v-text-field
+        v-model="currentPost.slug"
+        label="Slug"
+        class="text-field slug-field"
+      ></v-text-field>
+
+      <quill-editor ref="myQuillEditor" v-model="currentPost.description" />
 
       <v-divider class="my-5"></v-divider>
 
-      <v-btn color="success" small @click="updatePost">
-        Update
-      </v-btn>
+      <v-btn color="success" small @click="updatePost"> Update </v-btn>
 
       <v-btn color="error" small class="mr-2" @click="deletePost">
         Delete
@@ -36,8 +37,8 @@
 
 <script>
 import PostDataService from "../services/PostDataService";
-import 'quill/dist/quill.snow.css';
-import { quillEditor } from 'vue-quill-editor';
+import "quill/dist/quill.snow.css";
+import { quillEditor } from "vue-quill-editor";
 
 export default {
   name: "post",
@@ -59,18 +60,15 @@ export default {
         });
     },
 
-    updatePublished(status) {
+    updatePublished() {
       var data = {
         id: this.currentPost.id,
         title: this.currentPost.title,
+        slug: this.currentPost.slug,
         description: this.currentPost.description,
-        published: status,
       };
 
       PostDataService.update(this.currentPost.id, data)
-        .then(() => {
-          this.currentPost.published = status;
-        })
         .catch((e) => {
           console.log(e);
         });
@@ -102,8 +100,8 @@ export default {
   },
 
   components: {
-    quillEditor
-  }
+    quillEditor,
+  },
 };
 </script>
 

@@ -53,6 +53,7 @@ export default {
       headers: [
         { text: "Title", align: "start", sortable: false, value: "title" },
         { text: "Description", value: "description", sortable: false },
+        { text: "Likes", value: "likes", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
     };
@@ -118,6 +119,7 @@ export default {
         title: post.title.length > maxLength ? this.cutStr(post.title, maxLength) : post.title,
         slug: post.slug,
         description: post.description.length > maxLength ? this.cutStr(post.description, maxLength) : post.description,
+        likes: post.likes,
       };
     },
 

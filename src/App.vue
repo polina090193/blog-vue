@@ -3,7 +3,7 @@
     <v-app-bar app dark>
 
       <v-btn to="/archive" text>
-        Archive posts
+        All posts
       </v-btn>
 
       <v-btn to="/add" text>
@@ -26,7 +26,7 @@
     },
 
     data: () => ({
-      //
+      
     }),
   };
 </script>

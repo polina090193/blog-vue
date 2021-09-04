@@ -21,7 +21,6 @@
         <quill-editor
           ref="myQuillEditor"
           v-model="post.description"
-          :options="editorOption"
         />
       </v-form>
 
@@ -61,12 +60,9 @@ export default {
         title: "",
         slug: "",
         description: "",
-        published: false,
+        likes: 0,
       },
       submitted: false,
-      editorOption: {
-        
-      }
     };
   },
   methods: {
@@ -75,6 +71,7 @@ export default {
         title: this.post.title,
         description: this.post.description,
         slug: this.post.slug && this.post.slug != '' ? this.post.slug : cyrillicToTranslit().transform(this.post.title, "-").toLowerCase().replace(/[^\w\s-]/g,''),
+        likes: this.post.likes,
       };
 
       PostDataService.create(data)

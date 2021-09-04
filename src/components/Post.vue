@@ -3,9 +3,12 @@
     <p class="headline">{{ currentPost.title }}</p>
 
     <div v-html="currentPost.description"></div>
-    
+    <div ref="likesNumber">{{ currentPost.likes }}</div>
+
     <v-form ref="form" lazy-validation>
       <v-btn @click="editPost" color="primary" small class="mr-2"> Edit </v-btn>
+
+      <v-btn @click="addLike" color="primary" small class="mr-2"> Like {{ currentPost.likes }}</v-btn>
 
       <v-btn color="error" small class="mr-2" @click="deletePost">
         Delete
@@ -57,6 +60,21 @@ export default {
           console.log(e);
         });
     },
+
+    addLike() {
+      var data = {
+        id: this.currentPost.id,
+        title: this.currentPost.title,
+        slug: this.currentPost.slug,
+        likes: this.currentPost.likes + 1,
+      };
+
+      PostDataService.update(this.currentPost.id, data)
+        .catch((e) => {
+          console.log(e);
+        });
+        this.currentPost.likes = data.likes;
+    },
   },
   mounted() {
     this.message = "";
@@ -66,6 +84,10 @@ export default {
 </script>
 
 <style>
+img {
+  width: 100%;
+  height: 100%;
+}
 .edit-form {
   max-width: 300px;
   margin: auto;
