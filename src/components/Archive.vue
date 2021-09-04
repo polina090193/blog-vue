@@ -108,13 +108,21 @@ export default {
     },
 
     getDisplayPost(post) {
+      const maxLength = 30;
+
       return {
         id: post._id,
-        title: post.title.length > 30 ? post.title.substr(0, 30) + "..." : post.title,
+        title: post.title.length > maxLength ? this.cutStr(post.title, maxLength) : post.title,
         slug: post.slug,
-        description: post.description.length > 30 ? post.description.substr(0, 30) + "..." : post.description,
+        description: post.description.length > maxLength ? this.cutStr(post.description, maxLength) : post.description,
       };
     },
+
+    cutStr(str, maxLength) {
+      const arr = str.substr(0, maxLength).split(' ');
+      arr.splice(-1, 1);
+      return arr.join(' ') + '...';
+    }
   },
   mounted() {
     this.retrievePosts();
