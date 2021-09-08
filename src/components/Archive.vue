@@ -1,10 +1,10 @@
 <template>
   <v-row align="center" class="list px-3 mx-auto">
-    <v-col cols="12" md="8">
+    <v-col cols="12" md="10">
       <v-text-field v-model="title" label="Search by Title" @keyup.enter="searchTitle"></v-text-field>
     </v-col>
 
-    <v-col cols="12" md="4">
+    <v-col cols="12" md="2">
       <v-btn small @click="searchTitle">
         Search
       </v-btn>
