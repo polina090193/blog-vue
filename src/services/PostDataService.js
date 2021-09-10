@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class PostDataService {
-  getAll(params) {
-    return http.get("/posts"), { params };
+  getAll() {
+    return http.get("/posts");
   }
 
   get(id) {
