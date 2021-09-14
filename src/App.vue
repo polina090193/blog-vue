@@ -30,3 +30,13 @@
     }),
   };
 </script>
+
+<style lang="scss">
+.text-editor {
+  height: 200px;
+
+  @media screen and (max-width: 575px) {
+    height: 100px;
+  }
+}
+</style>

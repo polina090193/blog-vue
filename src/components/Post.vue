@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentPost" class="edit-form py-3">
+  <div v-if="currentPost" class="single py-3">
     <p class="headline">{{ currentPost.title }}</p>
 
     <div v-html="currentPost.description"></div>
@@ -84,8 +84,8 @@ img {
   width: 100%;
   height: 100%;
 }
-.edit-form {
-  max-width: 300px;
+.single {
+  width: 40%;
   margin: auto;
 }
 </style>

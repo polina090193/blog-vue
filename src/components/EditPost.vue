@@ -7,6 +7,7 @@
         v-model="currentPost.title"
         :rules="[(v) => !!v || 'Title is required']"
         label="Title"
+        class="text-field title-field"
         required
       ></v-text-field>
 
@@ -16,13 +17,13 @@
         class="text-field slug-field"
       ></v-text-field>
 
-      <quill-editor ref="myQuillEditor" v-model="currentPost.description" />
+      <quill-editor class="text-editor" ref="myQuillEditor" v-model="currentPost.description" />
 
       <v-divider class="my-5"></v-divider>
 
-      <v-btn color="success" small @click="updatePost"> Update </v-btn>
+      <v-btn class="edit-btn edit-btn_upd" color="success" small @click="updatePost"> Update </v-btn>
 
-      <v-btn color="error" small class="mr-2" @click="deletePost">
+      <v-btn color="error" small class="mr-2 edit-btn edit-btn_del" @click="deletePost">
         Delete
       </v-btn>
     </v-form>
@@ -105,9 +106,31 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .edit-form {
-  max-width: 300px;
+  width: 40%;
   margin: auto;
+
+  @media screen and (max-width: 575px) {
+    width: 90%;
+  }
+}
+.text-field {
+  width: 60%;
+
+  @media screen and (max-width: 575px) {
+    width: 100%;
+  }
+}
+.edit-btn {
+  margin-top: 100px;
+
+  @media screen and (max-width: 575px) {
+    margin-top: 160px;
+  }
+  
+  &_upd {
+    margin-right: 20px;
+  }
 }
 </style>

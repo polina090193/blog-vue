@@ -21,10 +21,11 @@
         <quill-editor
           ref="myQuillEditor"
           v-model="post.description"
+          class="text-editor"
         />
       </v-form>
 
-      <v-btn color="primary" @click="savePost">Submit</v-btn>
+      <v-btn class="add-submit-btn" color="primary" @click="savePost">Submit</v-btn>
     </div>
 
     <div v-else>
@@ -96,11 +97,26 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .submit-form {
-  width: 60%;
+  width: 40%;
+
+  @media screen and (max-width: 575px) {
+    width: 90%;
+  }
 }
 .text-field {
-  width: 40%;
+  width: 60%;
+
+  @media screen and (max-width: 575px) {
+    width: 100%;
+  }
+}
+.add-submit-btn {
+  margin-top: 100px;
+
+  @media screen and (max-width: 575px) {
+    margin-top: 160px;
+  }
 }
 </style>

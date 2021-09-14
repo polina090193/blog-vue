@@ -1,19 +1,17 @@
 <template>
   <v-row align="center" class="list px-3 mx-auto">
-    <v-col cols="12" md="8">
+    <v-col cols="12" md="10">
       <v-text-field v-model="title" label="Search by Title" @keyup.enter="searchTitle"></v-text-field>
     </v-col>
 
-    <v-col cols="12" md="4">
+    <v-col cols="12" md="2">
       <v-btn small @click="searchTitle">
         Search
       </v-btn>
     </v-col>
-
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
         <v-card-title>Archive</v-card-title>
-
         <v-data-table
           :headers="headers"
           :items="posts"
@@ -31,7 +29,6 @@
             <v-icon small @click="deletePost(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
-
         <v-card-actions v-if="posts.length > 0">
           <v-btn small color="error" @click="removeAllPosts">
             Remove All
@@ -41,7 +38,6 @@
     </v-col>
   </v-row>
 </template>
-
 <script>
 import PostDataService from "../services/PostDataService";
 export default {
@@ -68,11 +64,9 @@ export default {
           console.log(e);
         });
     },
-
     refreshList() {
       this.retrievePosts();
     },
-
     removeAllPosts() {
       PostDataService.deleteAll()
         .then(() => {
@@ -82,7 +76,6 @@ export default {
           console.log(e);
         });
     },
-
     searchTitle() {
       PostDataService.findByTitle(this.title)
         .then((response) => {
@@ -92,15 +85,12 @@ export default {
           console.log(e);
         });
     },
-
     showSinglePost(id, slug) {
       this.$router.push({ name: "post-details", params: { id: id, slug: slug } });
     },
-
     editPost(id, slug) {
       this.$router.push({ name: "post-edit", params: { id: id, slug: slug } });
     },
-
     deletePost(id) {
       PostDataService.delete(id)
         .then(() => {
@@ -110,10 +100,8 @@ export default {
           console.log(e);
         });
     },
-
     getDisplayPost(post) {
       const maxLength = 30;
-
       return {
         id: post._id,
         title: post.title.length > maxLength ? this.cutStr(post.title, maxLength) : post.title,
@@ -122,7 +110,6 @@ export default {
         likes: post.likes,
       };
     },
-
     cutStr(str, maxLength) {
       const arr = str.substr(0, maxLength).split(' ');
       arr.splice(-1, 1);
@@ -134,7 +121,6 @@ export default {
   },
 };
 </script>
-
 <style>
 .list {
   max-width: 750px;
