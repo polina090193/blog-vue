@@ -3,7 +3,6 @@
     <p class="headline">{{ currentPost.title }}</p>
 
     <div v-html="currentPost.description"></div>
-    <div ref="likesNumber">{{ currentPost.likes }}</div>
 
     <v-form ref="form" lazy-validation>
       <v-btn @click="editPost" color="primary" small class="mr-2"> Edit </v-btn>
@@ -16,8 +15,8 @@
     </v-form>
   </div>
 
-  <div v-else>
-    <p>No such post is founded.</p>
+  <div v-else class="edit-form py-3">
+    <p>Loading...</p>
   </div>
 </template>
 
@@ -63,9 +62,6 @@ export default {
 
     addLike() {
       var data = {
-        id: this.currentPost.id,
-        title: this.currentPost.title,
-        slug: this.currentPost.slug,
         likes: this.currentPost.likes + 1,
       };
 
