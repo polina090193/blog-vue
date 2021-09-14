@@ -5,7 +5,7 @@ import Register from './components/Register.vue';
 
 Vue.use(Router);
 
-export const router = new Router({
+export default new Router({
   // mode: "history",
   routes: [
     {
@@ -44,17 +44,3 @@ export const router = new Router({
     }
   ]
 });
-
-router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/archive', '/register'];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('user');
-
-  if (authRequired && !loggedIn) {
-    next('/archive');
-  } else {
-    next();
-  }
-});
-
-export default router;

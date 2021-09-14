@@ -1,22 +1,21 @@
 <template>
   <v-app>
     <v-app-bar app dark>
+      <v-btn to="/archive" text> All posts </v-btn>
 
-      <v-btn to="/archive" text>
-        All posts
-      </v-btn>
-
-      <v-btn to="/add" text>
+      <v-btn
+        to="/add"
+        v-show="currentUser && currentUser.roles.includes('ROLE_ADMIN')"
+        text
+      >
         Add
       </v-btn>
 
-      <v-btn to="/login" text>
-        Login
-      </v-btn>
+      <v-btn v-if="!currentUser" to="/login" text> Login </v-btn>
 
-      <v-btn to="/register" text>
-        Register
-      </v-btn>
+      <v-btn v-if="!currentUser" to="/register" text> Register </v-btn>
+
+      <v-btn v-if="currentUser" to="/profile" text> Profile </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -26,17 +25,15 @@
 </template>
 
 <script>
-  export default {
-    name: 'App',
+export default {
+  name: "App",
 
-    computed: {
+  computed: {
     currentUser() {
       return this.$store.state.auth.user;
-    }
+    },
   },
-  methods: {
-    
-  }
+  methods: {},
 };
 </script>
 
