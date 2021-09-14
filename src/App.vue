@@ -9,6 +9,14 @@
       <v-btn to="/add" text>
         Add
       </v-btn>
+
+      <v-btn to="/login" text>
+        Login
+      </v-btn>
+
+      <v-btn to="/register" text>
+        Register
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -21,14 +29,15 @@
   export default {
     name: 'App',
 
-    components: {
-
-    },
-
-    data: () => ({
-      
-    }),
-  };
+    computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
+  },
+  methods: {
+    
+  }
+};
 </script>
 
 <style lang="scss">
