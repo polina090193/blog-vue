@@ -5,11 +5,11 @@
     <div v-html="currentPost.description"></div>
 
     <v-form ref="form" lazy-validation>
-      <v-btn @click="editPost" color="primary" small class="mr-2"> Edit </v-btn>
+      <v-btn v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')" @click="editPost" color="primary" small class="mr-2"> Edit </v-btn>
 
       <v-btn @click="addLike" color="primary" small class="mr-2"> Like {{ currentPost.likes }}</v-btn>
 
-      <v-btn color="error" small class="mr-2" @click="deletePost">
+      <v-btn v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')" color="error" small class="mr-2" @click="deletePost">
         Delete
       </v-btn>
     </v-form>
@@ -30,6 +30,11 @@ export default {
       currentPost: null,
       message: "",
     };
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
   },
   methods: {
     getPost(id) {

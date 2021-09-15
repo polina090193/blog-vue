@@ -1,8 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from './views/Home.vue';
-import Login from './views/Login.vue';
-import Register from './views/Register.vue';
+import Login from './components/Login.vue';
+import Register from './components/Register.vue';
 
 Vue.use(Router);
 
@@ -16,10 +15,6 @@ export default new Router({
       component: () => import("./components/Archive")
     },
     {
-      path: '/home',
-      component: Home
-    },
-    {
       path: '/login',
       component: Login
     },
@@ -30,8 +25,7 @@ export default new Router({
     {
       path: '/profile',
       name: 'profile',
-      // lazy-loaded
-      component: () => import('./views/Profile.vue')
+      component: () => import('./components/Profile.vue')
     },
     {
       path: "/posts/:slug",

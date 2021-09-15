@@ -25,12 +25,13 @@
             <span v-html="item.description"></span>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editPost(item.id, item.slug)">mdi-pencil</v-icon>
-            <v-icon small @click="deletePost(item.id)">mdi-delete</v-icon>
+            <v-icon v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')" small class="mr-2" @click="editPost(item.id, item.slug)">mdi-pencil</v-icon>
+            <v-icon v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')" small @click="deletePost(item.id)">mdi-delete</v-icon>
+            <p v-else>You have to get admin access <br>for editing and deleting posts</p>
           </template>
         </v-data-table>
         <v-card-actions v-if="posts.length > 0">
-          <v-btn small color="error" @click="removeAllPosts">
+          <v-btn v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')" small color="error" @click="removeAllPosts">
             Remove All
           </v-btn>
         </v-card-actions>
@@ -53,6 +54,11 @@ export default {
         { text: "Actions", value: "actions", sortable: false },
       ],
     };
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
   },
   methods: {
     retrievePosts() {
