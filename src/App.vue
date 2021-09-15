@@ -45,4 +45,12 @@ export default {
     height: 100px;
   }
 }
+
+.text-start {
+  padding: 10px 16px !important;
+}
+
+.v-application .text-start p {
+  margin-bottom: 0;
+}
 </style>
