@@ -136,4 +136,8 @@ label {
 .alert {
   margin-top: 0.5rem;
 }
+
+.v-application p {
+  margin-bottom: 0;
+}
 </style>
