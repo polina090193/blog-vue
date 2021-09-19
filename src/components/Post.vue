@@ -1,22 +1,40 @@
 <template>
-  <div v-if="currentPost" class="single py-3">
-    <p class="headline">{{ currentPost.title }}</p>
+  <div class="single py-3">
+    <div v-if="currentPost">
+      <p class="headline">{{ currentPost.title }}</p>
 
-    <div v-html="currentPost.description"></div>
+      <div v-html="currentPost.description"></div>
 
-    <v-form ref="form" lazy-validation>
-      <v-btn v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')" @click="editPost" color="primary" small class="mr-2"> Edit </v-btn>
+      <v-form ref="form" class="post-btns" lazy-validation>
+        <v-btn
+          v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')"
+          @click="editPost"
+          color="primary"
+          small
+          class="mr-2"
+        >
+          Edit
+        </v-btn>
 
-      <v-btn @click="addLike" color="primary" small class="mr-2"> Like {{ currentPost.likes }}</v-btn>
+        <v-btn @click="addLike" color="primary" small class="mr-2">
+          Like {{ currentPost.likes }}</v-btn
+        >
 
-      <v-btn v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')" color="error" small class="mr-2" @click="deletePost">
-        Delete
-      </v-btn>
-    </v-form>
-  </div>
+        <v-btn
+          v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')"
+          color="error"
+          small
+          class="mr-2"
+          @click="deletePost"
+        >
+          Delete
+        </v-btn>
+      </v-form>
+    </div>
 
-  <div v-else class="edit-form py-3">
-    <p>Loading...</p>
+    <div v-else class="edit-form py-3">
+      <bar-loader class="bar-loader" :loading="loading"></bar-loader>
+    </div>
   </div>
 </template>
 
@@ -34,7 +52,7 @@ export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
-    }
+    },
   },
   methods: {
     getPost(id) {
@@ -70,11 +88,10 @@ export default {
         likes: this.currentPost.likes + 1,
       };
 
-      PostDataService.update(this.currentPost.id, data)
-        .catch((e) => {
-          console.log(e);
-        });
-        this.currentPost.likes = data.likes;
+      PostDataService.update(this.currentPost.id, data).catch((e) => {
+        console.log(e);
+      });
+      this.currentPost.likes = data.likes;
     },
   },
   mounted() {
@@ -84,7 +101,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+p.headline {
+  margin-bottom: 1rem;
+}
 img {
   width: 100%;
   height: 100%;
@@ -92,5 +112,12 @@ img {
 .single {
   width: 40%;
   margin: auto;
+
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
+}
+.post-btns {
+  margin-top: 1rem;
 }
 </style>

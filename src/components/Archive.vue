@@ -146,7 +146,7 @@ export default {
   margin: 16px;
 }
 
-[v-cloak] {
-  content: 'Loading'
+.v-application p {
+  margin-bottom: 0;
 }
 </style>
