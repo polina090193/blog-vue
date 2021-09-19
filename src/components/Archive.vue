@@ -12,7 +12,8 @@
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
         <v-card-title>Archive</v-card-title>
-        <v-data-table
+        <bar-loader class="bar-loader" :loading="loading"></bar-loader>
+        <v-data-table v-cloak
           :headers="headers"
           :items="posts"
           disable-pagination
@@ -29,6 +30,9 @@
             <v-icon v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')" small @click="deletePost(item.id)">mdi-delete</v-icon>
             <p v-else>You have to get admin access <br>for editing and deleting posts</p>
           </template>
+          <template slot="no-data">
+            <div></div>
+          </template>
         </v-data-table>
         <v-card-actions v-if="posts.length > 0">
           <v-btn v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')" small color="error" @click="removeAllPosts">
@@ -41,8 +45,12 @@
 </template>
 <script>
 import PostDataService from "../services/PostDataService";
+import { BarLoader } from '@saeris/vue-spinners'
 export default {
   name: "archive-posts",
+  components: {
+    BarLoader
+  },
   data() {
     return {
       posts: [],
@@ -53,6 +61,7 @@ export default {
         { text: "Likes", value: "likes", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
+      loading: true
     };
   },
   computed: {
@@ -66,6 +75,7 @@ export default {
         .then((response) => {
           this.posts = response.data.map(this.getDisplayPost);
         })
+        .then(() => this.loading = false)
         .catch((e) => {
           console.log(e);
         });
@@ -130,5 +140,13 @@ export default {
 <style>
 .list {
   max-width: 750px;
+}
+
+.bar-loader {
+  margin: 16px;
+}
+
+[v-cloak] {
+  content: 'Loading'
 }
 </style>

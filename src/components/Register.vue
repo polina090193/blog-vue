@@ -6,55 +6,55 @@
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         class="profile-img-card"
       />
-      <form name="form" @submit.prevent="handleRegister">
+      <v-form ref="form" name="form">
         <div v-if="!successful">
           <div class="form-group">
-            <label for="username">Username</label>
-            <input
+            <v-text-field
               v-model="user.username"
               v-validate="'required|min:3|max:20'"
               type="text"
               class="form-control"
               name="username"
-            />
+              label="Username"
+            ></v-text-field>
             <div
               v-if="submitted && errors.has('username')"
               class="alert-danger"
             >{{errors.first('username')}}</div>
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
-            <input
+            <v-text-field
               v-model="user.email"
               v-validate="'required|email|max:50'"
               type="email"
               class="form-control"
               name="email"
-            />
+              label="Email"
+            ></v-text-field>
             <div
               v-if="submitted && errors.has('email')"
               class="alert-danger"
             >{{errors.first('email')}}</div>
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
-            <input
+            <v-text-field
               v-model="user.password"
               v-validate="'required|min:6|max:40'"
               type="password"
               class="form-control"
               name="password"
-            />
+              label="Password"
+            ></v-text-field>
             <div
               v-if="submitted && errors.has('password')"
               class="alert-danger"
             >{{errors.first('password')}}</div>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary btn-block">Sign Up</button>
+            <v-btn color="success" @click.prevent="handleRegister">Login</v-btn>
           </div>
         </div>
-      </form>
+      </v-form>
 
       <div
         v-if="message"
@@ -146,5 +146,9 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+
+.alert {
+  margin-top: 0.5rem;
 }
 </style>
