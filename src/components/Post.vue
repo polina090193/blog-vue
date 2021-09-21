@@ -16,9 +16,23 @@
           Edit
         </v-btn>
 
-        <v-btn @click="addLike" color="primary" small class="mr-2">
+        <v-btn
+          v-if="currentUser"
+          @click="addLike"
+          color="primary"
+          small
+          class="mr-2"
+        >
           Like {{ currentPost.likes }}</v-btn
         >
+        <div v-else class="likes">
+
+          <v-btn color="primary" small class="mr-2" disabled>
+            You have to register for post liking</v-btn
+          >
+          
+          {{ currentPost.likes }} likes
+        </div>
 
         <v-btn
           v-if="currentUser && currentUser.roles.includes('ROLE_ADMIN')"
