@@ -18,19 +18,19 @@
 
         <v-btn
           v-if="currentUser"
-          @click="addLike"
+          @click="like"
           color="primary"
           small
           class="mr-2"
+          v-bind:class="{ liked: userWasLiked }"
         >
           Like {{ currentPost.likes }}</v-btn
         >
         <div v-else class="likes">
-
           <v-btn color="primary" small class="mr-2" disabled>
             You have to register for post liking</v-btn
           >
-          
+
           {{ currentPost.likes }} likes
         </div>
 
@@ -47,7 +47,7 @@
     </div>
 
     <div v-else class="edit-form py-3">
-      <bar-loader class="bar-loader" :loading="loading"></bar-loader>
+      <bar-loader class="bar-loader"></bar-loader>
     </div>
   </div>
 </template>
@@ -66,6 +66,12 @@ export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    userID() {
+      return this.currentUser.id;
+    },
+    userWasLiked() {
+      return this.currentPost.liked.includes(this.userID);
     },
   },
   methods: {
@@ -97,9 +103,24 @@ export default {
         });
     },
 
-    addLike() {
-      var data = {
-        likes: this.currentPost.likes + 1,
+    like() {
+
+      let likes = this.userWasLiked
+          ? this.currentPost.likes - 1
+          : this.currentPost.likes + 1,
+
+          liked = this.currentPost.liked;
+
+      if (!this.userWasLiked) {
+        liked.push(this.userID);
+      } else {
+        let userIndexInLiked = liked.indexOf(this.userID);
+        liked.splice(userIndexInLiked, 1);
+      }
+
+      let data = {
+        likes: likes,
+        liked: liked
       };
 
       PostDataService.update(this.currentPost.id, data).catch((e) => {
@@ -133,5 +154,9 @@ img {
 }
 .post-btns {
   margin-top: 1rem;
+}
+
+.v-application .v-btn.liked {
+  background-color: #ff5252 !important;
 }
 </style>
