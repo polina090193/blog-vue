@@ -1,5 +1,11 @@
-https://desolate-cove-91969.herokuapp.com/
+Frontend part
 
-Vue.js, Node.js, Express, MongoDB.
+Demo: https://desolate-cove-91969.herokuapp.com/
+Frontend: Vue.js. Backend: Node.js, Express, MongoDB.
 
-Posts (add, edit, delete), likes, online editor, authorization (two types of roles), auto url from title
+Functions:
+- Posts (add, edit, delete)
+- Likes
+- Online editor
+- Auth (two types of roles except quest)
+- Auto url from title
