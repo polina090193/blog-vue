@@ -1,6 +1,7 @@
 Frontend part
 
 Demo: https://desolate-cove-91969.herokuapp.com/
+
 Frontend: Vue.js. Backend: Node.js, Express, MongoDB.
 
 Functions:
